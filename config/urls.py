@@ -17,6 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from stock.views import StockDetailView, StockListCreateView, StockListRandoView
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    # DRF
+    path("all-stock", StockListCreateView.as_view(), name="all-stock"),
+    path("all-stock-random", StockListRandoView.as_view(), name="all-stock-random"),
+    path("stock/<int:pk>", StockDetailView.as_view(), name="stock"),
+
 ]
