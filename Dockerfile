@@ -1,6 +1,6 @@
 FROM python:3.9.6-slim-buster
 RUN apt-get update && apt-get install -y --reinstall build-essential \
-  gcc supervisor\
+gcc supervisor\
    && rm -rf /var/lib/apt/lists/*
 EXPOSE 8000
 
