@@ -21,16 +21,16 @@ class RecomendationSystem:
         self.__reaction_service = ReactionService()
         user_reactions = self.__reaction_service.get_user_reactions(user_id)
 
-        user_reactions_ids = [user_reaction.meme_id for user_reaction in user_reactions]
-        user_liked_memes_ids = [
-            user_reaction.meme_id
+        user_reactions_ids = [user_reaction.id for user_reaction in user_reactions]
+        user_liked_ids = [
+            user_reaction.id
             for user_reaction in user_reactions
             if user_reaction.reaction == Reactions.LIKE
         ]
 
         if user_reactions_ids:
             return self.__ann_service.get_user_recommendations(
-                user_liked_memes_ids,
+                user_liked_ids,
                 user_reactions_ids,
             )
 
