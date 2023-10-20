@@ -11,7 +11,7 @@ class Stock(models.Model):
         return self.title
 
 
-class Reactions(models.Model):
+class Reaction(models.Model):
     account = models.ForeignKey(
         Account, related_name="account", on_delete=models.CASCADE
     )
