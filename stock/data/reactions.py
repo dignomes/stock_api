@@ -7,7 +7,7 @@ from stock.models import Reaction, Stock
 class ReactionService:
     @staticmethod
     def create_reaction(account_id: int, stock_id: int, reaction: str):
-        user = Account.objects.get(pk=account_id)
+        user = Account.objects.get_or_create(pk=account_id)
         stock = Stock.objects.get(pk=stock_id)
         reaction = Reaction.objects.create(
             user=user, stock=stock, reaction=reaction,
