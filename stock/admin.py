@@ -1,4 +1,6 @@
 from django.contrib import admin
 
-from
-# Register your models here.
+from .models import Stock
+
+
+admin.site.register(Stock)
