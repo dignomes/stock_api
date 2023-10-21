@@ -52,8 +52,8 @@ class ApproximateNearestNeighborsService:
             user_vector: npt.ArrayLike,
     ) -> List[int]:
         small_model = AnnoyIndex(VECTOR_DIMENSIONS, ANNOY_METRIC)
-        for meme_id in filtered_ids:
-            small_model.add_item(meme_id, self.annoy_model.get_item_vector(meme_id))
+        for company_id in filtered_ids:
+            small_model.add_item(company_id, self.annoy_model.get_item_vector(company_id))
 
         small_model.build(10)
         return small_model.get_nns_by_vector(user_vector, 5)
