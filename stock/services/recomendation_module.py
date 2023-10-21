@@ -41,4 +41,3 @@ class RecomendationSystem:
         items = list(Stock.objects.all())
         return random.sample(items, 10)
 
-print(RecomendationSystem().get_recommendation(123))
