@@ -32,7 +32,6 @@ class ApproximateNearestNeighborsService:
             numbers_of_all_companies,
             user_vector,
         )
-
         return [Stock.objects.get(id=i) for i in recommendations_from_model]
 
     def get_nearest_vectors_ids_by_vector(
