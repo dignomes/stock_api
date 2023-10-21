@@ -17,9 +17,9 @@ USER root
 # Make script executable
 RUN chmod +x /run_app.sh
 
-RUN chmod 777 /db.sqlite3
+# Change permissions of the database file to read-only
+RUN chmod 444 /db.sqlite3
 RUN chown "$USER":"$USER" /db.sqlite3
-
 
 # Run the application
 CMD ["/run_app.sh"]
