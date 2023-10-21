@@ -1,5 +1,4 @@
 from django.db import models
-from accounts.models import Account
 # Create your models here.
 
 class Stock(models.Model):
@@ -14,7 +13,7 @@ class Stock(models.Model):
 
 class Reaction(models.Model):
     account = models.ForeignKey(
-        Account, related_name="account", on_delete=models.CASCADE
+        "UserProfile", related_name="user_profile", on_delete=models.CASCADE
     )
 
     stock = models.ForeignKey(
@@ -23,3 +22,9 @@ class Reaction(models.Model):
     reaction = models.CharField(max_length=32)
 
 
+class UserProfile(models.Model):
+
+    uid = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.uid
