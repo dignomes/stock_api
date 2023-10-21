@@ -60,4 +60,7 @@ class ReactionViewSet(viewsets.ViewSet):
         ReactionService().create_reaction(account_id, stock_id, reaction)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
+# {"stockId":1,
+#  "accountId":1,
+#  "reaction":"LIKE"
+#  }
