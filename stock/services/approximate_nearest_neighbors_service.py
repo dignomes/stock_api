@@ -4,13 +4,13 @@ from typing import Dict, List, Literal, cast
 import numpy as np
 import numpy.typing as npt
 from annoy import AnnoyIndex
-from loguru import logger
 
-from service.config import MODEL_PATH, VECTOR_DIMENSIONS
+
+from stock.models import Stock
 
 ANNOY_METRIC = cast(Literal, "angular")
-
-
+VECTOR_DIMENSIONS= 768
+MODEL_PATH = "model.ann"
 class ApproximateNearestNeighborsService:
     def __init__(self):
         self.annoy_model = AnnoyIndex(VECTOR_DIMENSIONS, ANNOY_METRIC)
@@ -21,18 +21,17 @@ class ApproximateNearestNeighborsService:
             user_liked_ids: List[int],
             user_reacted_ids: List[int],
     ) -> List[int]:
-        user_vectors = self.get_vectors_by_ids(user_reacted_ids)
-        user_vector = random.choice(user_vectors)
+        user_vectors = self.get_vectors_by_ids(user_liked_ids)
+        user_vector = self.calculate_user_vector(user_vectors)
+
         numbers_of_all_companies = self.annoy_model.get_n_items()
-        recommendations_from_model = self.get_nearest_vectors_ids_by_vector(user_vector)
+        filtered_ids = self.__get_filtered_ids(numbers_of_all_companies, user_reacted_ids)
 
-        filtered_ids = random.sample(
-            self.__get_filtered_ids(numbers_of_all_companies, user_reacted_ids),
-            numbers_of_all_companies
+        recommendations_from_model = self.get_recommendations_from_model(
+            filtered_ids,
+            user_vector,
         )
-        random_companies = self.__get_random_companies(filtered_ids)
-
-        return recommendations_from_model
+        return Stock.objects.filter(stock_id__in=recommendations_from_model)
 
     def get_nearest_vectors_ids_by_vector(
             self,
@@ -44,6 +43,18 @@ class ApproximateNearestNeighborsService:
         return np.array(
             [self.annoy_model.get_item_vector(vector_id) for vector_id in vector_ids],
         )
+
+    def get_recommendations_from_model(
+            self,
+            filtered_ids: List[int],
+            user_vector: npt.ArrayLike,
+    ) -> List[int]:
+        small_model = AnnoyIndex(VECTOR_DIMENSIONS, ANNOY_METRIC)
+        for meme_id in filtered_ids:
+            small_model.add_item(meme_id, self.annoy_model.get_item_vector(meme_id))
+
+        small_model.build(10)
+        return small_model.get_nns_by_vector(user_vector, 5)
 
     def get_vectors_by_ids(self, company_ids: List[int]) -> np.ndarray:
         return np.array(
@@ -68,3 +79,7 @@ class ApproximateNearestNeighborsService:
             for meme_id in range(numbers_of_all_memes)
             if meme_id not in memes_id_for_exclude
         ]
+
+    @staticmethod
+    def calculate_user_vector(user_features: np.ndarray) -> np.ndarray:
+        return np.mean(user_features, axis=0).astype("float32")
