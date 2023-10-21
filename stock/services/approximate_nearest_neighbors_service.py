@@ -5,12 +5,13 @@ import numpy as np
 import numpy.typing as npt
 from annoy import AnnoyIndex
 
-
 from stock.models import Stock
 
 ANNOY_METRIC = cast(Literal, "angular")
-VECTOR_DIMENSIONS= 768
+VECTOR_DIMENSIONS = 768
 MODEL_PATH = "model.ann"
+
+
 class ApproximateNearestNeighborsService:
     def __init__(self):
         self.annoy_model = AnnoyIndex(VECTOR_DIMENSIONS, ANNOY_METRIC)
@@ -64,7 +65,7 @@ class ApproximateNearestNeighborsService:
 
     @staticmethod
     def __get_random_companies(
-            filtered_ids: list[int],
+            filtered_ids: List[int],
             number: int = 5,
     ) -> List[int]:
         return random.sample(filtered_ids, k=number)
