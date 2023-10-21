@@ -17,7 +17,7 @@ class RecomendationSystem:
         self.__ann_service = ApproximateNearestNeighborsService()
         self.__reaction_service = ReactionService()
 
-    def get_recommendation(self, user_id: int) -> List[int]:
+    def get_recommendation(self, user_id: str) -> List[int]:
         # get all reactions for exclude them
         self.__reaction_service = ReactionService()
         user_reactions = self.__reaction_service.get_user_reactions(user_id)

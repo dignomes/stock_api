@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from stock.views import StockDetailView, StockListCreateView, ReactionViewSet
+from stock.views import StockDetailView, StockListCreateView, ReactionViewSet,StockListRecomendView
 
 router = routers.DefaultRouter()
 router.register('stock-reaction/', ReactionViewSet, basename='stock-reaction')
@@ -28,7 +28,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     # DRF
     path("api/all-stock/", StockListCreateView.as_view(), name="all-stock"),
-    path("api/all-stock-random/", StockListRandomView.as_view(), name="all-stock-random"),
+    path("api/stock-recommend/", StockListRecomendView.as_view(), name="stock-recommend"),
     path("api/stock/<int:pk>/", StockDetailView.as_view(), name="stock"),
     path('api/', include(router.urls)),
 

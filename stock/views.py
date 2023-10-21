@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from .data.reactions import ReactionService
 from .serializers import StockSerializer
 from .models import Stock
+from .services.recomendation_module import RecomendationSystem
 
 
 # Create your views here.
@@ -26,10 +27,10 @@ class StockDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = StockSerializer
 
 
-class StockListRandomView(ListAPIView):
-    items = list(Stock.objects.all())
-    queryset = random.sample(items, 10)
-    serializer_class = StockSerializer
+class StockListRecomendView(ListAPIView):
+    def list(self, request, *args, **kwargs):
+        account_id = request.data.get("uid")
+        RecomendationSystem().get_recommendation(account_id)
 
 
 class ReactionViewSet(viewsets.ViewSet):
