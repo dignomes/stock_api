@@ -2,9 +2,8 @@ FROM python:3.9.6-buster
 
 # Install dependencies
 RUN apt-get update && apt-get install -y --reinstall build-essential \
-gcc supervisor\
+gcc supervisor sqlite3\
    && rm -rf /var/lib/apt/lists/*
-
 # Expose port
 EXPOSE 8000
 
