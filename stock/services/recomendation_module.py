@@ -22,9 +22,9 @@ class RecomendationSystem:
         self.__reaction_service = ReactionService()
         user_reactions = self.__reaction_service.get_user_reactions(user_id)
 
-        user_reactions_ids = [user_reaction.id for user_reaction in user_reactions]
+        user_reactions_ids = [user_reaction.stock_id for user_reaction in user_reactions]
         user_liked_ids = [
-            user_reaction.id
+            user_reaction.stock_id
             for user_reaction in user_reactions
             if user_reaction.reaction == Reactions.LIKE
         ]
