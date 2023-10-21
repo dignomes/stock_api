@@ -1,4 +1,7 @@
+import ast
+
 from django.db import models
+
 # Create your models here.
 
 class Stock(models.Model):
@@ -9,6 +12,10 @@ class Stock(models.Model):
 
     def __str__(self):
         return self.title
+
+
+    def get_tags(self):
+        return ast.literal_eval(self.tags)
 
 
 class Reaction(models.Model):
