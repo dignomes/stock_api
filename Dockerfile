@@ -19,6 +19,7 @@ RUN chmod +x /run_app.sh
 
 # Change permissions of the database file to read-only
 RUN chmod 444 /db.sqlite3
+
 RUN chown "$USER":"$USER" /db.sqlite3
 
 # Run the application
