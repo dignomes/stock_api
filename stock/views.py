@@ -42,10 +42,10 @@ class ReactionViewSet(viewsets.ViewSet):
         stock_id = request.data.get("stockId")
         account_id = request.data.get("accountId")
         reaction = request.data.get("reaction")
-        ReactionService.create_reaction(account_id, stock_id, reaction)
+        ReactionService().create_reaction(account_id, stock_id, reaction)
         return Response(status=status.HTTP_200_OK)
 
-# {"stockId":1,
-#  "accountId":1,
-#  "reaction":"LIKE"
-#  }
+{"stockId":158,
+ "accountId":"1",
+ "reaction":"LIKE"
+ }
