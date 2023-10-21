@@ -23,7 +23,7 @@ class ApproximateNearestNeighborsService:
             user_reacted_ids: List[int],
     ) -> List[int]:
         user_vectors = self.get_vectors_by_ids(user_liked_ids)
-        user_vector = self.calculate_user_vector(user_vectors)
+        user_vector = self.__calculate_user_vector(user_vectors)
 
         numbers_of_all_companies = self.annoy_model.get_n_items()
         filtered_ids = self.__get_filtered_ids(numbers_of_all_companies, user_reacted_ids)
@@ -82,5 +82,5 @@ class ApproximateNearestNeighborsService:
         ]
 
     @staticmethod
-    def calculate_user_vector(user_features: np.ndarray) -> np.ndarray:
+    def __calculate_user_vector(user_features: np.ndarray) -> np.ndarray:
         return np.mean(user_features, axis=0).astype("float32")
