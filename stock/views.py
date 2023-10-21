@@ -27,9 +27,9 @@ class StockDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = StockSerializer
 
 
-class StockListRecomendView(ListAPIView):
-    def list(self, request, *args, **kwargs):
-        account_id = request.data.get("uid")
+class StockListRecomendView(viewsets.ViewSet):
+    def list(self, request):
+        account_id = request.data.get("uid","1")
         RecomendationSystem().get_recommendation(account_id)
 
 
@@ -41,4 +41,7 @@ class ReactionViewSet(viewsets.ViewSet):
         ReactionService.create_reaction(account_id, stock_id, reaction)
         return Response(status=status.HTTP_200_OK)
 
-
+# {"stockId":1,
+#  "accountId":1,
+#  "reaction":"LIKE"
+#  }

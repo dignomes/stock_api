@@ -16,5 +16,8 @@ class ReactionService:
 
     @staticmethod
     def get_user_reactions(user_id: str) -> List[Reaction]:
-        user = UserProfile.objects.get_or_create(uid=user_id)
-        return Reaction.objects.filter(account=user)
+
+        user = UserProfile.objects.get_or_create(id=1)
+        if user:
+
+            return Reaction.objects.filter(account=user[0].id)

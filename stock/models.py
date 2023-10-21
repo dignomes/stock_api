@@ -20,11 +20,11 @@ class Stock(models.Model):
 
 class Reaction(models.Model):
     account = models.ForeignKey(
-        "UserProfile", related_name="user_profile", on_delete=models.CASCADE
+        "UserProfile", related_name="user_profile", on_delete=models.CASCADE,blank=True,
     )
 
     stock = models.ForeignKey(
-        Stock, related_name="stock", on_delete=models.CASCADE
+        Stock, related_name="stock", on_delete=models.CASCADE, blank=True,
     )
     reaction = models.CharField(max_length=32)
 
