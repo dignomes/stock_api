@@ -33,7 +33,6 @@ class ApproximateNearestNeighborsService:
             user_vector,
         )
 
-
         return [Stock.objects.get(id=i) for i in recommendations_from_model]
 
     def get_nearest_vectors_ids_by_vector(
@@ -53,7 +52,8 @@ class ApproximateNearestNeighborsService:
             numbers_of_all_companies: int,
             user_vector: npt.ArrayLike,
     ) -> List[int]:
-        return [i for i in self.annoy_model.get_nns_by_vector(user_vector, numbers_of_all_companies) if
+
+        return [i for i in self.annoy_model.get_nns_by_vector(user_vector, numbers_of_all_companies//2) if
                 i not in filtered_ids][:5]
 
     def get_vectors_by_ids(self, company_ids: List[int]) -> np.ndarray:
