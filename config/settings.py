@@ -38,7 +38,7 @@ CORS_ALLOW_METHODS = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-
+    "*"
 ]
 
 
