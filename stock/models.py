@@ -6,9 +6,9 @@ from django.db import models
 
 class Stock(models.Model):
     title = models.CharField(max_length=128)
-    description = models.TextField()
-    tags = models.TextField()
-    image_url = models.TextField()
+    description = models.TextField(null=True, blank=True)
+    tags = models.TextField(null=True, blank=True)
+    image_url = models.TextField(null=True, blank=True)
     ticker_symbol = models.TextField(null=True, blank=True)
     day_high = models.FloatField(null=True, blank=True)
     day_low = models.FloatField(null=True, blank=True)
