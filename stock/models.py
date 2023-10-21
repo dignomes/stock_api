@@ -62,7 +62,7 @@ class Reaction(models.Model):
 
 class UserProfile(models.Model):
 
-    uid = models.CharField(max_length=64,unique=True)
+    uid = models.CharField(max_length=64)
 
     def __str__(self):
         return self.uid
