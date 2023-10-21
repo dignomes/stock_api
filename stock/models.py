@@ -6,6 +6,7 @@ class Stock(models.Model):
     title = models.CharField(max_length=128)
     description = models.TextField()
     tags = models.TextField()
+    image_url = models.TextField()
 
     def __str__(self):
         return self.title
