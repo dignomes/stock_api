@@ -26,14 +26,14 @@ class ApproximateNearestNeighborsService:
         user_vector = self.__calculate_user_vector(user_vectors)
 
         numbers_of_all_companies = self.annoy_model.get_n_items()
-        filtered_ids = self.__get_filtered_ids(numbers_of_all_companies, user_reacted_ids)
 
         recommendations_from_model = self.get_recommendations_from_model(
-            filtered_ids,
+            user_reacted_ids,
+            numbers_of_all_companies,
             user_vector,
         )
         print(recommendations_from_model)
-        return [Stock.objects.get(id=i+1) for i in recommendations_from_model]
+        return [Stock.objects.get(id=i + 1) for i in recommendations_from_model]
 
     def get_nearest_vectors_ids_by_vector(
             self,
@@ -49,14 +49,11 @@ class ApproximateNearestNeighborsService:
     def get_recommendations_from_model(
             self,
             filtered_ids: List[int],
+            numbers_of_all_companies: int,
             user_vector: npt.ArrayLike,
     ) -> List[int]:
-        small_model = AnnoyIndex(VECTOR_DIMENSIONS, ANNOY_METRIC)
-        for company_id in filtered_ids:
-            small_model.add_item(company_id, self.annoy_model.get_item_vector(company_id))
-
-        small_model.build(10)
-        return small_model.get_nns_by_vector(user_vector, 5)
+        return [i for i in self.annoy_model.get_nns_by_vector(user_vector, numbers_of_all_companies) if
+                i not in filtered_ids][:5]
 
     def get_vectors_by_ids(self, company_ids: List[int]) -> np.ndarray:
         return np.array(
