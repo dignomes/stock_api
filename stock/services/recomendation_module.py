@@ -1,6 +1,8 @@
+import random
 from typing import List
 
 from stock.data.reactions import ReactionService
+from stock.models import Stock
 from stock.services.approximate_nearest_neighbors_service import ApproximateNearestNeighborsService
 
 
@@ -14,9 +16,8 @@ class RecomendationSystem:
     def __init__(self):
         self.__ann_service = ApproximateNearestNeighborsService()
         self.__reaction_service = ReactionService()
-        self.__company_service = CompanyService()
 
-    def get_memes_recommendation(self, user_id: int) -> List[int]:
+    def get_recommendation(self, user_id: int) -> List[int]:
         # get all reactions for exclude them
         self.__reaction_service = ReactionService()
         user_reactions = self.__reaction_service.get_user_reactions(user_id)
@@ -33,5 +34,11 @@ class RecomendationSystem:
                 user_liked_ids,
                 user_reactions_ids,
             )
+        return [stock for stock in self.get_init_companies()]
 
-        return [company.id for company in self.__company_service.get_init_companies()]
+    @staticmethod
+    def get_init_companies():
+        items = list(Stock.objects.all())
+        return random.sample(items, 10)
+
+print(RecomendationSystem().get_recommendation(123))

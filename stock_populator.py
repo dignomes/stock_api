@@ -10,6 +10,7 @@ def populate_stock_model():
     file_name = 'stock/data.csv'
     input_file = csv.DictReader(open(file_name))
     for row in input_file:
+        Stock.objects.all().delete()
         stock = Stock.objects.create(title=row['company_name'], description=row['description'], tags=row['tags'])
         stock.save()
 
