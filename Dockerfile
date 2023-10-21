@@ -21,6 +21,6 @@ RUN chmod +x /run_app.sh
 RUN chmod 444 /db.sqlite3
 
 RUN chown "$USER":"$USER" /db.sqlite3
-
+RUN chown -R 1001:1001 /
 # Run the application
 CMD ["/run_app.sh"]
