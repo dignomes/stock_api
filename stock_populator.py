@@ -12,7 +12,7 @@ def populate_stock_model():
     Stock.objects.all().delete()
     for row in input_file:
         stock = Stock.objects.create(title=row['company_name'], description=row['description'], tags=row['tags'],
-                                     image_url=row['image_url'])
+                                     image_url=row['image_link'])
         stock.save()
 
     return
