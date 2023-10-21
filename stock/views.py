@@ -12,6 +12,8 @@ from .models import Stock
 from .services.recomendation_module import RecomendationSystem
 
 
+STOCK_RESPONSE_LIMIT = 15
+
 # Create your views here.
 class StockListCreateView(ListCreateAPIView):
     queryset = Stock.objects.all()
@@ -36,6 +38,20 @@ class StockListRecomendView(GenericAPIView):
         return Response([self.serializer_class(i).data for i in RecomendationSystem().get_recommendation(account_id)])
 
 
+class StockByTagView(GenericAPIView):
+
+    serializer_class = StockSerializer
+    queryset = Stock.objects.all()
+
+
+    def get(self, request, *args, **kwargs):
+
+        tags = request.data.get('tags')
+        # tags = ['greentech', 'renewable-energy']
+        stock = Stock.get_stocks_by_tags(Stock, tags)
+        return Response([self.serializer_class(i).data for i in stock[:STOCK_RESPONSE_LIMIT]])
+
+
 class ReactionViewSet(viewsets.ViewSet):
     def create(self, request: Request) -> Response:
         stock_id = request.data.get("stockId")
@@ -44,8 +60,4 @@ class ReactionViewSet(viewsets.ViewSet):
         ReactionService().create_reaction(account_id, stock_id, reaction)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-# {"stockId":158,
-#  "accountId":"1",
-#  "reaction":"LIKE"
-#  }
 

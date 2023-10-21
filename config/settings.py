@@ -62,7 +62,9 @@ CORS_ALLOWED_ORIGINS = [
 "http://127.0.0.1:8000",
 "http://127.0.0.1:5000",
 "http://127.0.0.1:3000",
-"*"
+'http://localhost:3030',
+"https://*",
+"http://*"
 ]
 
 # Application definition
@@ -77,6 +79,7 @@ INSTALLED_APPS = [
     "stock",
     "accounts",
     "rest_framework",
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -87,6 +90,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -114,11 +118,23 @@ AUTH_USER_MODEL = "accounts.Account"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+from . import database
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.oracle",
+        "NAME": "xe",
+        "USER": "a_user",
+        "PASSWORD": "a_password",
+        "HOST": "",
+        "PORT": "",
     }
+DATABASES = {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'dignomes',
+        'HOST': 'database-1.czbuvgqy2qgi.eu-west-2.rds.amazonaws.com',
+        'PORT': '5432',
 }
 
 
