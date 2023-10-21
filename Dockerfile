@@ -4,8 +4,8 @@ gcc supervisor\
    && rm -rf /var/lib/apt/lists/*
 EXPOSE 8000
 
-RUN pip install --no-cache-dir -r requirements.txt
 COPY ./ /
+RUN pip install --no-cache-dir -r requirements.txt
 
 RUN chmod +x /run_app.sh
 
