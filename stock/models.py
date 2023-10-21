@@ -9,6 +9,7 @@ class Stock(models.Model):
     description = models.TextField()
     tags = models.TextField()
     image_url = models.TextField()
+    ticker_symbol = models.TextField()
 
     def __str__(self):
         return self.title
