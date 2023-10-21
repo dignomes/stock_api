@@ -18,5 +18,4 @@ class ReactionService:
     def get_user_reactions(user_id: str) -> List[Reaction]:
 
         user = UserProfile.objects.get_or_create(uid=1)
-        if user:
-            return Reaction.objects.filter(account=user[0].id)
+        return Reaction.objects.filter(account=user[0].id)
