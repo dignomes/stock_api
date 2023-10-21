@@ -9,7 +9,7 @@ class ReactionService:
         user = UserProfile.objects.get_or_create(uid=account_id)
         stock = Stock.objects.get(pk=stock_id)
         reaction = Reaction.objects.create(
-            user=user[0], stock=stock, reaction=reaction_str,
+            account=user[0], stock=stock, reaction=reaction_str,
         )
         reaction.save()
         return reaction
