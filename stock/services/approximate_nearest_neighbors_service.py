@@ -9,7 +9,7 @@ from stock.models import Stock
 
 ANNOY_METRIC = cast(Literal, "angular")
 VECTOR_DIMENSIONS = 768
-MODEL_PATH = "model.ann"
+MODEL_PATH = "stock/services/model.ann"
 
 
 class ApproximateNearestNeighborsService:
