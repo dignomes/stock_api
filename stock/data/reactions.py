@@ -11,11 +11,15 @@ class ReactionService:
         except Exception:
             pass
         stock = Stock.objects.get(pk=stock_id)
-        reaction = Reaction.objects.create(
-            account=user, stock=stock, reaction=reaction_str,
-        )
-        reaction.save()
-        return reaction
+        try:
+            reaction = Reaction.objects.create(
+                account=user, stock=stock, reaction=reaction_str,
+            )
+            reaction.save()
+            return reaction
+
+        except Exception:
+            return
 
     @staticmethod
     def get_user_reactions(user_id: str) -> List[Reaction]:

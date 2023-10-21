@@ -60,6 +60,10 @@ class Reaction(models.Model):
     reaction = models.CharField(max_length=32)
 
 
+    class Meta:
+        unique_together = ('account', 'stock', 'reaction')
+
+
 class UserProfile(models.Model):
 
     uid = models.CharField(max_length=64, unique=True)
