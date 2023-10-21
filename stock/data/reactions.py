@@ -1,13 +1,12 @@
 from typing import List
 
-from accounts.models import Account
-from stock.models import Reaction, Stock
+from stock.models import Reaction, Stock, UserProfile
 
 
 class ReactionService:
     @staticmethod
     def create_reaction(account_id: str, stock_id: int, reaction: str):
-        user = Account.objects.get_or_create(pk=account_id)
+        user = UserProfile.objects.get_or_create(uid=account_id)
         stock = Stock.objects.get(pk=stock_id)
         reaction = Reaction.objects.create(
             user=user, stock=stock, reaction=reaction,
@@ -17,5 +16,5 @@ class ReactionService:
 
     @staticmethod
     def get_user_reactions(user_id: str) -> List[Reaction]:
-        user = Account.objects.get_or_create(pk=user_id)
+        user = UserProfile.objects.get_or_create(uid=user_id)
         return Reaction.objects.filter(user=user)

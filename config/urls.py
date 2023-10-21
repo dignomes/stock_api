@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from stock.views import StockDetailView, StockListCreateView, StockListRandomView, ReactionViewSet
+from stock.views import StockDetailView, StockListCreateView, ReactionViewSet
 
 router = routers.DefaultRouter()
 router.register('stock-reaction/', ReactionViewSet, basename='stock-reaction')
