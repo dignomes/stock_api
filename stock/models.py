@@ -61,7 +61,7 @@ class Reaction(models.Model):
 
 
     class Meta:
-        unique_together = ('account', 'stock', 'reaction')
+        unique_together = ('account', 'stock')
 
 
 class UserProfile(models.Model):
