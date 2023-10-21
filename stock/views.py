@@ -30,13 +30,11 @@ class StockDetailView(RetrieveUpdateDestroyAPIView):
 
 
 class StockListRecomendView(GenericAPIView):
-
     serializer_class = StockSerializer
     queryset = Stock.objects.all()
 
-    def get(self, request, *args, **kwargs):
-
-        account_id = request.data.get("uid", "1")
+    def get(self, request: Request, *args, **kwargs):
+        account_id = request.META.get("X-User-GUID")
         return Response([self.serializer_class(i).data for i in RecomendationSystem().get_recommendation(account_id)])
 
 
@@ -60,6 +58,6 @@ class ReactionViewSet(viewsets.ViewSet):
         account_id = request.data.get("accountId")
         reaction = request.data.get("reaction")
         ReactionService().create_reaction(account_id, stock_id, reaction)
-        return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
