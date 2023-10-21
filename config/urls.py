@@ -15,15 +15,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
 
-from stock.views import StockDetailView, StockListCreateView, StockListRandoView
+from stock.views import StockDetailView, StockListCreateView, StockListRandomView, ReactionViewSet
+
+router = routers.DefaultRouter()
+router.register('stock-reaction/', ReactionViewSet, basename='stock-reaction')
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     # DRF
-    path("all-stock", StockListCreateView.as_view(), name="all-stock"),
-    path("all-stock-random", StockListRandoView.as_view(), name="all-stock-random"),
-    path("stock/<int:pk>", StockDetailView.as_view(), name="stock"),
+    path("api/all-stock/", StockListCreateView.as_view(), name="all-stock"),
+    path("api/all-stock-random/", StockListRandomView.as_view(), name="all-stock-random"),
+    path("api/stock/<int:pk>/", StockDetailView.as_view(), name="stock"),
+    path('api/', include(router.urls)),
 
 ]

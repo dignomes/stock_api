@@ -26,7 +26,7 @@ class StockDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = StockSerializer
 
 
-class StockListRandoView(ListAPIView):
+class StockListRandomView(ListAPIView):
     items = list(Stock.objects.all())
     queryset = random.sample(items, 10)
     serializer_class = StockSerializer
@@ -39,3 +39,5 @@ class ReactionViewSet(viewsets.ViewSet):
         reaction = request.data.get("reaction")
         ReactionService.create_reaction(account_id, stock_id, reaction)
         return Response(status=status.HTTP_200_OK)
+
+

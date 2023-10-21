@@ -40,8 +40,8 @@ class MyAccountManager(BaseUserManager):
 
 
 class Account(AbstractBaseUser):
-    first_name = models.CharField(max_length=64)
-    last_name = models.CharField(max_length=64)
+    first_name = models.CharField(max_length=64, null=True, blank=True)
+    last_name = models.CharField(max_length=64, null=True, blank=True)
     username = models.CharField(max_length=64, unique=True)
     email = models.EmailField(max_length=128, unique=True)
 

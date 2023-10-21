@@ -17,7 +17,7 @@ class Reaction(models.Model):
     )
 
     stock = models.ForeignKey(
-        "Stock", related_name="stock", on_delete=models.CASCADE
+        Stock, related_name="stock", on_delete=models.CASCADE
     )
     reaction = models.CharField(max_length=32)
 
