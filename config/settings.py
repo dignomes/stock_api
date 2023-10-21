@@ -118,25 +118,16 @@ AUTH_USER_MODEL = "accounts.Account"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-from . import database
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.oracle",
-        "NAME": "xe",
-        "USER": "a_user",
-        "PASSWORD": "a_password",
-        "HOST": "",
-        "PORT": "",
+        "ENGINE": 'django.db.backends.postgresql_psycopg2',
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "dignomes",
+        "HOST": "database-1.czbuvgqy2qgi.eu-west-2.rds.amazonaws.com",
+        "PORT": 5432,
     }
-DATABASES = {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'dignomes',
-        'HOST': 'database-1.czbuvgqy2qgi.eu-west-2.rds.amazonaws.com',
-        'PORT': '5432',
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
