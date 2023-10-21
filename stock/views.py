@@ -2,7 +2,7 @@ import random
 
 from django.shortcuts import render
 from rest_framework import viewsets, status
-from rest_framework.generics import (ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView)
+from rest_framework.generics import (ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView, GenericAPIView)
 from rest_framework.request import Request
 from rest_framework.response import Response
 
@@ -27,14 +27,16 @@ class StockDetailView(RetrieveUpdateDestroyAPIView):
     serializer_class = StockSerializer
 
 
-class StockListRecomendView(viewsets.ViewSet):
-    serializer_class = StockSerializer
-    def list(self, request, pk=None):
-        serializer_class = StockSerializer
-        account_id = request.data.get("uid","1")
+class StockListRecomendView(GenericAPIView):
 
-        return Response([serializer_class(i).data for i in RecomendationSystem().get_recommendation(account_id)])
-        # return Response(status=status.HTTP_200_OK)
+    serializer_class = StockSerializer
+    queryset = Stock.objects.all()
+
+    def get(self, request, *args, **kwargs):
+
+        account_id = request.data.get("uid", "1")
+        return Response([self.serializer_class(i).data for i in RecomendationSystem().get_recommendation(account_id)])
+
 
 
 class ReactionViewSet(viewsets.ViewSet):
@@ -45,7 +47,8 @@ class ReactionViewSet(viewsets.ViewSet):
         ReactionService().create_reaction(account_id, stock_id, reaction)
         return Response(status=status.HTTP_200_OK)
 
-{"stockId":158,
- "accountId":"1",
- "reaction":"LIKE"
- }
+# {"stockId":158,
+#  "accountId":"1",
+#  "reaction":"LIKE"
+#  }
+

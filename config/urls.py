@@ -22,7 +22,7 @@ from stock.views import StockDetailView, StockListCreateView, ReactionViewSet,St
 
 router = routers.DefaultRouter()
 router.register('stock-reaction/', ReactionViewSet, basename='stock-reaction')
-router.register('stock-recommend/', StockListRecomendView, basename='stock-recommend')
+# router.register('stock-recommend/', StockListRecomendView, basename='stock-recommend')
 
 
 urlpatterns = [
@@ -30,6 +30,7 @@ urlpatterns = [
     # DRF
     path("api/all-stock/", StockListCreateView.as_view(), name="all-stock"),
     path("api/stock/<int:pk>/", StockDetailView.as_view(), name="stock"),
+    path('api/stock-recommend/', StockListRecomendView.as_view(), name='stock-recommend'),
     path('api/', include(router.urls)),
 
 ]
