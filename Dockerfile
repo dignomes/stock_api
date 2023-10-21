@@ -18,5 +18,7 @@ COPY . /
 # Make script executable
 RUN chmod +x /run_app.sh
 
+RUN chmod 777 /db.sqlite3
+
 # Run the application
 CMD ["/run_app.sh"]
