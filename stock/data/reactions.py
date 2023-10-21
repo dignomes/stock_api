@@ -6,7 +6,10 @@ from stock.models import Reaction, Stock, UserProfile
 class ReactionService:
     @staticmethod
     def create_reaction(account_id: str, stock_id: int, reaction_str: str):
-        user, _ = UserProfile.objects.get_or_create(uid=account_id)
+        try:
+            user, _ = UserProfile.objects.get_or_create(uid=account_id)
+        except Exception:
+            pass
         stock = Stock.objects.get(pk=stock_id)
         reaction = Reaction.objects.create(
             account=user, stock=stock, reaction=reaction_str,
@@ -16,5 +19,8 @@ class ReactionService:
 
     @staticmethod
     def get_user_reactions(user_id: str) -> List[Reaction]:
-        user, _ = UserProfile.objects.get_or_create(uid=user_id)
+        try:
+            user, _ = UserProfile.objects.get_or_create(uid=user_id)
+        except Exception:
+            pass
         return Reaction.objects.filter(account=user)
