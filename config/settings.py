@@ -36,6 +36,12 @@ CORS_ALLOW_METHODS = [
 'POST',
 'PUT',
 ]
+
+CORS_ORIGIN_WHITELIST = [
+
+]
+
+
 CORS_ALLOW_HEADERS = [
 'accept',
 'accept-encoding',
