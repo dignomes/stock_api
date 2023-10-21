@@ -73,13 +73,13 @@ class ApproximateNearestNeighborsService:
 
     @staticmethod
     def __get_filtered_ids(
-            numbers_of_all_memes: int,
-            memes_id_for_exclude: List[int],
+            numbers_of_all_companies: int,
+            ids_for_exclude: List[int],
     ) -> List[int]:
         return [
-            meme_id
-            for meme_id in range(numbers_of_all_memes)
-            if meme_id not in memes_id_for_exclude
+            company_id
+            for company_id in range(numbers_of_all_companies)
+            if company_id not in ids_for_exclude
         ]
 
     @staticmethod
