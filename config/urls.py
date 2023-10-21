@@ -18,12 +18,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 
-from stock.views import StockDetailView, StockListCreateView, ReactionViewSet,StockListRecomendView
+from stock.views import StockDetailView, StockListCreateView, ReactionViewSet,StockListRecomendView, StockByTagView
 
 router = routers.DefaultRouter()
 router.register('stock-reaction/', ReactionViewSet, basename='stock-reaction')
-# router.register('stock-recommend/', StockListRecomendView, basename='stock-recommend')
-
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -31,6 +29,7 @@ urlpatterns = [
     path("api/all-stock/", StockListCreateView.as_view(), name="all-stock"),
     path("api/stock/<int:pk>/", StockDetailView.as_view(), name="stock"),
     path('api/stock-recommend/', StockListRecomendView.as_view(), name='stock-recommend'),
+    path('api/stock-by-tag/', StockByTagView.as_view(), name="stock-by-tag)"),
     path('api/', include(router.urls)),
 
 ]
