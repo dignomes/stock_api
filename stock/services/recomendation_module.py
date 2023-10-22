@@ -35,7 +35,7 @@ class RecomendationSystem:
                 user_liked_ids,
                 user_reactions_ids,
             )
-        return [stock for stock in self.get_init_companies()]
+        return [stock for stock in self.get_init_companies() if stock.id not in user_reactions_ids]
 
     @staticmethod
     def get_init_companies():
