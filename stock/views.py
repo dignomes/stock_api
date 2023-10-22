@@ -34,7 +34,7 @@ class StockListRecomendView(GenericAPIView):
     queryset = Stock.objects.all()
 
     def get(self, request: Request, *args, **kwargs):
-        account_id = request.META.get("X-User-GUID","1")
+        account_id = request.META.get("X-User-Guid","1")
         return Response([self.serializer_class(i).data for i in RecomendationSystem().get_recommendation(account_id)])
 
 
@@ -60,7 +60,7 @@ class ReactionViewSet(viewsets.ViewSet):
         ReactionService().create_reaction(account_id, stock_id, reaction)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-# {"stockId":1,
-#  "accountId":1,
-#  "reaction":"LIKE"
-#  }
+{"stockId":1,
+ "accountId":1,
+ "reaction":"LIKE"
+ }
