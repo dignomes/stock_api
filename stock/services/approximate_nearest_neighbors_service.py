@@ -22,7 +22,9 @@ class ApproximateNearestNeighborsService:
             user_liked_ids: List[int],
             user_reacted_ids: List[int],
     ) -> List[int]:
+        print(user_liked_ids)
         user_vectors = self.get_vectors_by_ids(user_liked_ids)
+        print(user_vectors)
         user_vector = self.__calculate_user_vector(user_vectors)
 
         numbers_of_all_companies = self.annoy_model.get_n_items()
@@ -51,8 +53,11 @@ class ApproximateNearestNeighborsService:
             numbers_of_all_companies: int,
             user_vector: npt.ArrayLike,
     ) -> List[int]:
+        print(user_vector)
+        print(numbers_of_all_companies)
+        print(self.annoy_model.get_nns_by_vector(user_vector, numbers_of_all_companies))
 
-        return [i for i in self.annoy_model.get_nns_by_vector(user_vector, numbers_of_all_companies//2) if
+        return [i for i in self.annoy_model.get_nns_by_vector(user_vector, numbers_of_all_companies) if
                 i not in filtered_ids][:5]
 
     def get_vectors_by_ids(self, company_ids: List[int]) -> np.ndarray:

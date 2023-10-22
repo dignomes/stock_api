@@ -34,7 +34,8 @@ class StockListRecomendView(GenericAPIView):
     queryset = Stock.objects.all()
 
     def get(self, request: Request, *args, **kwargs):
-        account_id = request.META.get("X-User-Guid","1")
+        account_id = request.META.get("HTTP_X_USER_GUID")
+        print(account_id)
         return Response([self.serializer_class(i).data for i in RecomendationSystem().get_recommendation(account_id)])
 
 

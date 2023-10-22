@@ -25,6 +25,7 @@ class ReactionService:
     def get_user_reactions(user_id: str) -> List[Reaction]:
         try:
             user, _ = UserProfile.objects.get_or_create(uid=user_id)
+            print(user.uid)
             return Reaction.objects.filter(account=user)
 
         except Exception:

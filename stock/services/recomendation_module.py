@@ -21,15 +21,16 @@ class RecomendationSystem:
         # get all reactions for exclude them
         self.__reaction_service = ReactionService()
         user_reactions = self.__reaction_service.get_user_reactions(user_id)
-
+        print(user_reactions[0].reaction)
         user_reactions_ids = [user_reaction.stock_id for user_reaction in user_reactions]
+
         user_liked_ids = [
             user_reaction.stock_id
             for user_reaction in user_reactions
             if user_reaction.reaction == Reactions.LIKE
         ]
-
-        if user_reactions_ids:
+        print(user_liked_ids)
+        if user_reactions_ids and user_liked_ids:
             return self.__ann_service.get_user_recommendations(
                 user_liked_ids,
                 user_reactions_ids,
