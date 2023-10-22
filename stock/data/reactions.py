@@ -30,4 +30,4 @@ class ReactionService:
 
         except Exception:
             pass
-        return
+        return []
