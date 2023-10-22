@@ -8,7 +8,7 @@ from annoy import AnnoyIndex
 from stock.models import Stock
 
 ANNOY_METRIC = cast(Literal, "angular")
-VECTOR_DIMENSIONS = 768
+VECTOR_DIMENSIONS = 768 + 4
 MODEL_PATH = "stock/services/model.ann"
 
 
