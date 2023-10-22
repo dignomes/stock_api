@@ -40,5 +40,5 @@ class RecomendationSystem:
     @staticmethod
     def get_init_companies():
         items = list(Stock.objects.all())
-        return random.sample(items, 10)
+        return random.sample(items, 5)
 
